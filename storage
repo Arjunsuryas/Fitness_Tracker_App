@@ -1,0 +1,26 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Activity, Food, UserProfile } from '@/types/fitness';
+
+const STORAGE_KEYS = {
+  ACTIVITIES: 'fitness_activities',
+  FOODS: 'fitness_foods',
+  PROFILE: 'fitness_profile',
+};
+
+export const StorageService = {
+  // Activities
+  async getActivities(): Promise<Activity[]> {
+    try {
+      const data = await AsyncStorage.getItem(STORAGE_KEYS.ACTIVITIES);
+      return data ? JSON.parse(data) : [];
+    } catch (error) {
+      console.error('Error loading activities:', error);
+      return [];
+    }
+  },
+
+  async saveActivity(activity: Activity): Promise<void> {
+    try {
+      const activities = await this.getActivities();
+      const existingIndex = activities.findIndex(a => a.id === activity.id);
+};
