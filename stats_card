@@ -1,0 +1,72 @@
+import { View, Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
+interface StatsCardProps {
+  title: string;
+  value: string;
+  unit: string;
+  icon: React.ReactNode;
+  colors: string[];
+}
+
+export default function StatsCard({ title, value, unit, icon, colors }: StatsCardProps) {
+  return (
+    <LinearGradient colors={colors} style={styles.container}>
+      <View style={styles.iconContainer}>
+        {icon}
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <View style={styles.valueContainer}>
+          <Text style={styles.value}>{value}</Text>
+          <Text style={styles.unit}>{unit}</Text>
+        </View>
+      </View>
+    </LinearGradient>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 16,
+    marginHorizontal: 4,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  iconContainer: {
+    marginRight: 12,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#ffffff',
+    opacity: 0.8,
+    marginBottom: 4,
+  },
+  valueContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  value: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#ffffff',
+  },
+  unit: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#ffffff',
+    opacity: 0.7,
+    marginLeft: 4,
+  },
+});
