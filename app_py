@@ -1,0 +1,28 @@
+APP_CONFIG = {
+    "name": "bolt-python-app",
+    "slug": "bolt-python-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "user_interface_style": "automatic",
+    "new_arch_enabled": True,
+    "ios": {
+        "supports_tablet": True
+    },
+    "web": {
+        "bundler": "webpack",  # Python web apps use webpack or other tools
+        "output": "single",
+        "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": ["router", "font_loader", "web_browser"],  # Conceptual equivalents
+    "experiments": {
+        "typed_routes": True
+    }
+}
+
+# Example usage: accessing config
+if __name__ == "__main__":
+    print(f"App Name: {APP_CONFIG['name']}")
+    print(f"Version: {APP_CONFIG['version']}")
+    print(f"Supports tablet: {APP_CONFIG['ios']['supports_tablet']}")
