@@ -1,0 +1,52 @@
+import requests
+from dataclasses import dataclass
+from typing import Any, Dict, Optional
+
+# Example dataclass for a UserProfile API response
+@dataclass
+class UserProfile:
+    id: str
+    name: str
+    age: int
+    email: str
+
+# API integration service
+class ApiService:
+    BASE_URL = "https://api.example.com"  # Replace with your API base URL
+
+    @staticmethod
+    def get(endpoint: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            response = requests.get(f"{ApiService.BASE_URL}/{endpoint}", params=params)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as e:
+            print(f"GET request failed: {e}")
+            return {}
+
+    @staticmethod
+    def post(endpoint: str, data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        try:
+            response = requests.post(f"{ApiService.BASE_URL}/{endpoint}", json=data)
+            response.raise_for_status()
+            return response.json()
+        except requests.RequestException as e:
+            print(f"POST request failed: {e}")
+            return {}
+
+# Example usage
+def fetch_user_profile(user_id: str) -> Optional[UserProfile]:
+    data = ApiService.get(f"users/{user_id}")
+    if data:
+        return UserProfile(
+            id=data.get("id", ""),
+            name=data.get("name", ""),
+            age=data.get("age", 0),
+            email=data.get("email", "")
+        )
+    return None
+
+# Fetch a user profile
+profile = fetch_user_profile("123")
+if profile:
+    print(profile)
